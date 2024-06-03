@@ -1,6 +1,6 @@
 from django.db.models import CharField, ForeignKey, CASCADE, IntegerField, UniqueConstraint
-from metahat.models import BaseModel
 from users.models import User
+from utils.models import BaseModel
 
 class Wallet(BaseModel):
     user = ForeignKey(User, on_delete=CASCADE)
@@ -17,11 +17,11 @@ class Wallet(BaseModel):
     class Meta:
         verbose_name = 'Wallet'
         verbose_name_plural = 'Wallets'
-        constraint = [
+        constraints = [
             UniqueConstraint(
                 fields=["user"],
                 name="You can have only one wallet per user.",
-            )
+            ),
         ]
 
     def __str__(self):
@@ -34,4 +34,18 @@ class Wallet(BaseModel):
         self.balance += amount
         self.save()
         return self.balance
+    
+    def list_transactions(self) -> list:
+        return self.transaction_set.all()
 
+class Transaction(BaseModel):
+    sender_address = ForeignKey(Wallet, on_delete=CASCADE, to_field='public_address', related_name='sender')
+    receiver_address = ForeignKey(Wallet, on_delete=CASCADE, to_field='public_address', related_name='receiver')
+    amount = IntegerField(null=False, blank=False)
+
+    class Meta:
+        verbose_name = 'Transaction'
+        verbose_name_plural = 'Transactions'
+    
+    def __str__(self):
+        return f'{self.sender_address} -> {self.receiver_address}'

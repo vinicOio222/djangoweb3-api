@@ -1,6 +1,6 @@
 from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.contrib.auth.hashers import make_password
-from metahat.utils.encryption import Encryption
+from utils.encryption import Encryption
 
 class UserManager(DjangoUserManager):
     def _create_user(self, email: str, password: str, **extra_fields):
@@ -28,6 +28,10 @@ class UserManager(DjangoUserManager):
             first_name=first_name,
             last_name=last_name
         )
+        Wallet.objects.create(
+            user=user,
+            
+            )
 
         return user
 
