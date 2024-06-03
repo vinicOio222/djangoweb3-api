@@ -1,9 +1,8 @@
 from django.db.models import CharField, ForeignKey, CASCADE, IntegerField, UniqueConstraint
-from users.models import User
-from utils.models import BaseModel
+from config.utils.models import BaseModel
 
 class Wallet(BaseModel):
-    user = ForeignKey(User, on_delete=CASCADE)
+    user = ForeignKey('users.User', on_delete=CASCADE)
     public_address = CharField(max_length=255, unique=True)
     private_key = CharField(max_length=255, unique=True)
     balance = IntegerField(default=0)

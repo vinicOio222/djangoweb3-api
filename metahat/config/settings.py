@@ -51,7 +51,6 @@ LOCAL_APPS = [
     "config",
     "users",
     "blockchain",
-    "utils"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -138,3 +137,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RPC_URL = 'https://sepolia.infura.io/v3/'
