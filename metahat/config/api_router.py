@@ -7,8 +7,6 @@ router = DefaultRouter()
 
 router.register('transactions', TransactionViewSet, basename="transactions")
 
-
-
 permissions_classes = [AllowAny]
-app_name = "api_root"
+app_name = "api-root"
 urlpatterns = router.urls

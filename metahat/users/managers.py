@@ -1,6 +1,5 @@
 from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.contrib.auth.hashers import make_password
-from blockchain.services import Web3Service
 from config.utils.encryption import Encryption
 
 class UserManager(DjangoUserManager):
@@ -20,6 +19,8 @@ class UserManager(DjangoUserManager):
         return self._create_user(email, password, **extra_fields)
 
     def create_user_and_wallet(self, first_name: str, last_name: str, email: str, password: str) -> tuple:
+        from blockchain.services import Web3Service
+
         username = f'@{first_name.lower()}_{Encryption.generate_key(7)}'
         user = self.create_user(
             username=username,
@@ -29,9 +30,7 @@ class UserManager(DjangoUserManager):
             last_name=last_name
         )
         wallet = Web3Service().create_ethereum_account(user)
-        
-
-        return user
+        return user, wallet
 
     def create_superuser(self, email: str, password: str, **extra_fields):
         extra_fields.setdefault('is_staff', True)

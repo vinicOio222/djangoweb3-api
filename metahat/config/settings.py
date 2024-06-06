@@ -138,4 +138,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-RPC_URL = 'https://sepolia.infura.io/v3/'
+RPC_URL = 'https://sepolia.infura.io/v3/086a1ca2525b4a4b861911373cb7216a'
+MNEMONIC = 'option always found pyramid juice hat angry between main jealous near wood'
+BLOCK_SCAN='https://sepolia.etherscan.io/tx/'

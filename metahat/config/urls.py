@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.api.views import UserCreate
+from users.api.views import UserView
 
 API_PREFIX = 'api/v1/'
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path(f"{API_PREFIX}", include("config.api_router"), name="api_root"),
-    path(f"{API_PREFIX}users/", UserCreate.as_view(), name="user_create"),
-    path(f"{API_PREFIX}transactions/", include("blockchain.api.urls"), name="transactions"),
+    path(f"{API_PREFIX}", include("config.api_router"), name="api-root"),
+    path(f"{API_PREFIX}users/", UserView.as_view(), name="user-create"),
+    path(f"{API_PREFIX}transactions/", include("blockchain.api.urls")),
 ]
